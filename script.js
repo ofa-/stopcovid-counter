@@ -6,8 +6,13 @@ function onload() {
 		data[i][1] = (data[i][1]/1000000).toFixed(2)
 	}
 
-	document.body.appendChild(createCounter(data))
-	document.body.appendChild(createTable(data))
+	var counter, table
+	document.body.appendChild(counter = createCounter(data))
+	document.body.appendChild(table = createTable(data))
+
+	for (var i = lookupLast24hDataIndex(data); i > 0; i--) {
+		table.children[i].setAttribute("class", "last24h")
+	}
 }
 
 function createCounter(data) {
