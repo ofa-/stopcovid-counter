@@ -1,0 +1,25 @@
+name: Publish site
+
+on:
+  push:
+    tags:
+      - '*'
+  schedule:
+      - cron: "0 */6 * * *"
+
+jobs:
+  publish-site:
+    runs-on: ubuntu-18.04
+    env:
+      TARGET: ${{ secrets.TARGET_SITE }}
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - run: |
+          sudo apt-get install -y lftp
+          echo "set ftp:proxy http://62.210.136.88:3128" > ~/.lftprc
+
+      - run: make get-state update html push-state
+
+      - run: git diff
