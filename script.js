@@ -14,11 +14,14 @@ function createCounter(data) {
 	var div = document.createElement("div")
 	div.setAttribute("class", "counter")
 
+	var curr = data[1]
+	var last = data[lookupLast24hDataIndex(data)]
+
 	div.innerHTML = (
-		"<b class='users'>utilisateurs<br>+" + ((data[1][1] - data[2][1])*1000).toFixed(0) + " k</b>" +
-		"<b class='notif'>notifications<br>+" + (data[1][2] - data[2][2]) + "</b>" +
-		"<b class='decl'>déclarations<br>+" + (data[1][3] - data[2][3]) + "</b>" +
-		"<b class='cases'>contaminés<br>+" + (data[1][4]/1000).toFixed(0) + " k</b>" +
+		"<b class='users'>utilisateurs<br>+" + ((curr[1] - last[1])*1000).toFixed(0) + " k</b>" +
+		"<b class='notif'>notifications<br>+" + (curr[2] - last[2]) + "</b>" +
+		"<b class='decl'>déclarations<br>+" + (curr[3] - last[3]) + "</b>" +
+		"<b class='cases'>contaminés<br>+" + (curr[4]/1000).toFixed(0) + " k</b>" +
 		"")
 	return div
 }
@@ -37,6 +40,16 @@ function createTable(data) {
 		table.appendChild(tr)
 	}
 	return table
+}
+
+function lookupLast24hDataIndex(data) {
+	var d = new Date(data[1][0])
+	for (var i=2, di; i < data.length; i++) {
+		di = new Date(data[i][0])
+		if ( (d - di) > 24*60*60*1000 )
+			return i - 1
+	}
+	return data.length - 1
 }
 
 // https://stackoverflow.com/a/14991797
