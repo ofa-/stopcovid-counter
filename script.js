@@ -10,9 +10,8 @@ function onload() {
 	document.body.appendChild(counter = createCounter(data))
 	document.body.appendChild(table = createTable(data))
 
-	for (var i = lookupLast24hDataIndex(data); i > 0; i--) {
-		table.children[i].setAttribute("class", "last24h")
-	}
+	table.counter = counter
+	table.setScopedRows()
 }
 
 function createCounter(data) {
@@ -44,12 +43,14 @@ function createTable(data) {
 		}
 		table.appendChild(tr)
 	}
+	table.setScopedRows = tableSetScopedRows
+	addScopeSelector(table)
 	return table
 }
 
-function lookupLast24hDataIndex(data) {
-	var d = new Date(data[1][0])
-	for (var i=2, di; i < data.length; i++) {
+function lookupLast24hDataIndex(data, index=1) {
+	var d = new Date(data[index][0])
+	for (var i=index, di; i < data.length; i++) {
 		di = new Date(data[i][0])
 		if ( (d - di) > 24*60*60*1000 )
 			return i - 1
@@ -69,6 +70,32 @@ function counterSetValues(index=1) {
 	set(1, "+" + (curr[2] - last[2]))
 	set(2, "+" + (curr[3] - last[3]))
 	set(3, "+" + (curr[4]/1000).toFixed(0) + " k")
+}
+
+function tableRowOnClick() {
+	var table = this.parentElement
+	var index = Array.from(table.children).indexOf(this)
+	table.counter.setValues(index)
+	table.setScopedRows(index)
+}
+
+function tableSetScopedRows(index=1) {
+	var table = this
+	for (var i=0; i < table.children.length; i++) {
+		table.children[i].setAttribute("class", "")
+	}
+	var last = lookupLast24hDataIndex(table.counter.data, index)
+	for (var i=index; i <= last; i++) {
+		table.children[i].setAttribute("class", "last24h")
+	}
+}
+
+function addScopeSelector(table) {
+	for (var i=1, tr; i < table.children.length; i++) {
+		tr = table.children[i]
+		tr.onclick = tableRowOnClick
+		tr.onmouseover = tableRowOnClick
+	}
 }
 
 // https://stackoverflow.com/a/14991797
