@@ -19,15 +19,15 @@ function createCounter(data) {
 	var div = document.createElement("div")
 	div.setAttribute("class", "counter")
 
-	var curr = data[1]
-	var last = data[lookupLast24hDataIndex(data)]
-
 	div.innerHTML = (
-		"<b class='users'>utilisateurs<br>+" + ((curr[1] - last[1])*1000).toFixed(0) + " k</b>" +
-		"<b class='notif'>notifications<br>+" + (curr[2] - last[2]) + "</b>" +
-		"<b class='decl'>déclarations<br>+" + (curr[3] - last[3]) + "</b>" +
-		"<b class='cases'>contaminés<br>+" + (curr[4]/1000).toFixed(0) + " k</b>" +
-		"")
+		"<b class='users'>utilisateurs<p></p></b>" +
+		"<b class='notif'>notifications<p></p></b>" +
+		"<b class='decl'>déclarations<p></p></b>" +
+		"<b class='cases'>contaminés<p></p></b>"
+		)
+	div.data = data
+	div.setValues = counterSetValues
+	div.setValues()
 	return div
 }
 
@@ -55,6 +55,20 @@ function lookupLast24hDataIndex(data) {
 			return i - 1
 	}
 	return data.length - 1
+}
+
+function counterSetValues(index=1) {
+	var data = this.data, counter = this
+	var curr = data[index]
+	var last = data[lookupLast24hDataIndex(data, index)]
+
+	function set(child, value) {
+		counter.children[child].lastChild.innerHTML = value
+	}
+	set(0, "+" + ((curr[1] - last[1])*1000).toFixed(0) + " k")
+	set(1, "+" + (curr[2] - last[2]))
+	set(2, "+" + (curr[3] - last[3]))
+	set(3, "+" + (curr[4]/1000).toFixed(0) + " k")
 }
 
 // https://stackoverflow.com/a/14991797

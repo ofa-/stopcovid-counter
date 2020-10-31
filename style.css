@@ -32,8 +32,8 @@ body {
 	border-radius: 2em;
 	display: inline-block;
 }
-.counter br {
-	margin-bottom: 1em;
+.counter p {
+	margin: 1em 0 0 0;
 }
 .counter .users {
 	background-color: green;
