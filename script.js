@@ -52,7 +52,7 @@ function lookupLast24hDataIndex(data, index=1) {
 	var d = new Date(data[index][0])
 	for (var i=index, di; i < data.length; i++) {
 		di = new Date(data[i][0])
-		if ( (d - di) > 24*60*60*1000 )
+		if ( (d - di) > 24.25*60*60*1000 )
 			return i - 1
 	}
 	return data.length - 1
