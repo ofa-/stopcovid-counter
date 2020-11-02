@@ -18,7 +18,11 @@ jobs:
 
       - run: |
           sudo apt-get install -y lftp
-          echo "set ftp:proxy http://62.210.136.88:3128" > ~/.lftprc
+          echo "
+                set ftp:proxy http://62.210.136.88:3128
+                set net:max-retries 3
+                set net:timeout 10
+          " > ~/.lftprc
 
       - run: make get-state update html push-state
 
