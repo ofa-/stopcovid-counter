@@ -6,11 +6,12 @@ update:
 html:
 	./update-index.sh
 
-get-state:
-	lftp -c "open $(TARGET); get data.csv"
+get-state: $(addprefix get_, data.csv)
 
-push-state:
-	lftp -c "open $(TARGET); put data.csv index.html"
+push-state: $(addprefix put_, data.csv index.html)
 
-init-target:
-	lftp -c "open $(TARGET); put data.csv index.html style.css script.js"
+init-target: $(addprefix put_, data.csv index.html style.css script.js)
+
+
+put_%:;	$(TARGET)/$* -T - < $*
+get_%:;	$(TARGET)/$*      > $*
