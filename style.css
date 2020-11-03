@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
 html {
 	display: table;
 	width: 100%;
@@ -7,6 +10,8 @@ body {
 	display: table-cell;
 	vertical-align: middle;
 	text-align: center;
+	font-family: comfortaa;
+	font-size: 20pt;
 }
 .log {
 	display: inline-block;
@@ -14,18 +19,22 @@ body {
 .log td {
 	width: 10em;
 	text-align: right;
-	font-family: monospace;
+	font-family: roboto;
 }
 .log td:first-child {
 	text-align: left;
+	padding-left: 1em;
+}
+.log td:last-child {
+	padding-right: 1em;
 }
 .counter {
-	font-size: x-large;
+	font-size: larger;
 	color: white;
 	margin: 5em auto;
 }
 .counter b {
-	width: 6em;
+	width: 8em;
 	margin: .3em;
 	padding: 2em;
 	text-align: center;
