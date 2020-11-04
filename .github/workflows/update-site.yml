@@ -19,6 +19,8 @@ jobs:
       - run: cat > id_rsa <<< "${{ secrets.ID_RSA }}"
              && chmod og-rw id_rsa
 
+      - run: sudo timedatectl set-timezone Europe/Paris
+
       - run: make get-state update html push-state
 
       - run: git diff
