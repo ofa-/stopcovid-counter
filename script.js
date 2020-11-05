@@ -27,6 +27,7 @@ function createCounter(data) {
 	div.data = data
 	div.setValues = counterSetValues
 	div.setValues()
+	div.onclick = toggleTransparency
 	return div
 }
 
@@ -70,6 +71,11 @@ function counterSetValues(index=1) {
 	set(1, "+" + (curr[2] - last[2]))
 	set(2, "+" + (curr[3] - last[3]))
 	set(3, "+" + (curr[4]/1000).toFixed(0) + " k")
+}
+
+function toggleTransparency() {
+	this.style.backgroundColor = this.style.backgroundColor
+		? "" : "rgba(6,6,6, 0.2)"
 }
 
 function tableRowOnClick() {
