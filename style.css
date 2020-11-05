@@ -15,15 +15,17 @@ body {
 }
 .log {
 	display: inline-block;
+	margin-top: 23em;
 }
 .log td {
-	width: 10em;
+	width: 8em;
 	text-align: right;
 	font-family: roboto;
 }
 .log td:first-child {
 	text-align: left;
 	padding-left: 1em;
+	min-width: 8em;
 }
 .log td:last-child {
 	padding-right: 1em;
@@ -31,7 +33,11 @@ body {
 .counter {
 	font-size: larger;
 	color: white;
-	margin: 5em auto;
+	padding-top: .5em;
+	padding-bottom: 1em;
+	position: fixed;
+	width: 100%;
+	background-color: whitesmoke;
 }
 .counter b {
 	width: 8em;
