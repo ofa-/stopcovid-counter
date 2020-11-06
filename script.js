@@ -74,8 +74,30 @@ function counterSetValues(index=1) {
 }
 
 function toggleTransparency() {
-	this.style.backgroundColor = this.style.backgroundColor
-		? "" : "rgba(6,6,6, 0.2)"
+	var style = this.style
+	var transparent = (
+		style.backgroundColor =
+		style.backgroundColor ?  "" : "rgba(6,6,6, 0.2)"
+	)
+	window.onscroll = transparent ? setScopedLine : null
+	if (transparent) setScopedLine()
+}
+
+function setScopedLine() {
+	var doc = document.documentElement
+	var scroll = window.pageYOffset / (doc.scrollHeight - doc.clientHeight)
+	// var scroll = window.scrollY / window.scrollMaxY // FF
+
+	var offset = 0.1
+	if (scroll < offset) scroll = offset
+
+	var table = document.querySelector(".log")
+	var nbRows = table.children.length - 1
+
+	scroll = (scroll - offset) / (1 - offset) * (nbRows - 2) + 1
+	scroll = Number(scroll.toFixed(0))
+	table.counter.setValues(scroll)
+	table.setScopedRows(scroll)
 }
 
 function tableRowOnClick() {
