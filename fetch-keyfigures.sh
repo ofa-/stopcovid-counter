@@ -3,7 +3,7 @@
 DATA_URL=https://app.stopcovid.gouv.fr/infos/key-figures.json
 DATA_CSV=data.csv
 
-HEADER="date, registered, notified, declared, new_cases"
+HEADER="date,registered,notified,declared,new_cases"
 FIELDS=".registered, .notification, .qrcodes, .nombrecas"
 
 DATE=$(date +'%F %H:%M')
