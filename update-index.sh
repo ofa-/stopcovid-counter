@@ -7,6 +7,6 @@ sed -i "
 " index.html
 
 sed -i "
-	/^date, /	s:, :,\t\t\t:
+	/^date,/	s:,:,\t\t\t:
 	/^....-../	s:,:,\t:g
 " index.html
