@@ -12,12 +12,10 @@ jobs:
     runs-on: ubuntu-18.04
     env:
       TARGET: ${{ secrets.TARGET_SITE }}
+      POST:   ${{ secrets.POST }}
 
     steps:
       - uses: actions/checkout@v1
-
-      - run: cat > id_rsa <<< "${{ secrets.ID_RSA }}"
-             && chmod og-rw id_rsa
 
       - run: sudo timedatectl set-timezone Europe/Paris
 
