@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DATA_URL=https://app.stopcovid.gouv.fr/infos/key-figures.json
+DATA_URL=https://app.tousanticovid.gouv.fr/infos/key-figures.json
 DATA_CSV=data.csv
 
 HEADER="date,registered,notified,declared,new_cases"
